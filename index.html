@@ -464,20 +464,20 @@
 
   <div class="nav-section-label">Features</div>
   <div class="nav-item" onclick="show('analysis', this)" data-section="analysis">
-    <i class="ti ti-chart-line"></i> Stock Analysis
+    <i class="ti ti-chart-line"></i> Stock Dashboard
   </div>
   <div class="nav-item" onclick="show('indicators', this)" data-section="indicators">
-    <i class="ti ti-activity"></i> Indicators & Signals
+    <i class="ti ti-activity"></i> Analysis Dashboard
   </div>
   <div class="nav-item" onclick="show('watchlist', this)" data-section="watchlist">
-    <i class="ti ti-eye"></i> Watchlists
+    <i class="ti ti-eye"></i> Machine Learning Model
   </div>
   <div class="nav-item" onclick="show('alerts', this)" data-section="alerts">
-    <i class="ti ti-bell"></i> Alerts
+    <i class="ti ti-bell"></i> Diversification Portfolio
   </div>
-  <div class="nav-item" onclick="show('screener', this)" data-section="screener">
+  <!-- <div class="nav-item" onclick="show('screener', this)" data-section="screener">
     <i class="ti ti-filter"></i> Stock Screener
-  </div>
+  </div> -->
 
   <div class="nav-section-label">Reference</div>
   <div class="nav-item" onclick="show('api', this)" data-section="api">
@@ -649,33 +649,18 @@
   </div>
 
   <!-- STOCK ANALYSIS -->
-  <div class="section" id="analysis">
+  <div class="section" id="stocks">
     <p class="page-subtitle">Features</p>
-    <h1 class="page-title">Stock analysis</h1>
-    <p>The analysis view is the core of LagLens. Open it by searching for any ticker symbol and clicking on the result.</p>
+    <h1 class="page-title">Stock Dashboard</h1>
+    <p> Simple dashboard that displays a list of stocks and their price charts.</p>
 
     <h2>Chart panel</h2>
     <ul>
-      <li>Switch between timeframes: 1D, 1W, 1M, 3M, 1Y, 5Y</li>
-      <li>Add overlays (moving averages, Bollinger Bands, VWAP)</li>
-      <li>Enable volume bars via the toolbar</li>
-      <li>Draw trendlines and annotations with the drawing tools</li>
+      <li>Switch between timeframes: 1D, 5D, 1W, 1M, 6M, 1Y, 5Y</li>
+      <li>Click into specific stocks to show OHCLV data</li>
+      <li>See year by performance graph along with fundamental data of specific stock</li>
+      <li>Can favorite and search/filter for certain stocks</li>
     </ul>
-
-    <h2>Lag detection panel</h2>
-    <p>LagLens's proprietary lag detection compares a stock's price movement to a chosen benchmark over a selected window and surfaces where the stock's reaction lagged or led the market.</p>
-
-    <div class="steps">
-      <div class="step"><div class="step-num">1</div><div class="step-content"><h3>Select benchmark</h3><p>Choose from S&P 500, NASDAQ, a sector ETF, or any custom ticker.</p></div></div>
-      <div class="step"><div class="step-num">2</div><div class="step-content"><h3>Set lookback window</h3><p>Choose 30, 60, 90, or 180 days. Shorter windows highlight recent behavior.</p></div></div>
-      <div class="step"><div class="step-num">3</div><div class="step-content"><h3>Interpret results</h3><p>A positive lag score means the stock reacted after the benchmark. A negative score means it led.</p></div></div>
-    </div>
-
-    <div class="callout warning">
-      <i class="ti ti-alert-triangle"></i>
-      <p>Lag scores are statistical indicators only and do not constitute financial advice.</p>
-    </div>
-  </div>
 
   <!-- INDICATORS -->
   <div class="section" id="indicators">
