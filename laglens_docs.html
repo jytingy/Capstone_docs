@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LagLens Documentation</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --nav-width: 240px;
+    --accent: #1a56db;
+    --accent-light: #e8f0fe;
+    --accent-border: #93b4f7;
+    --nav-bg: #0f172a;
+    --nav-text: #94a3b8;
+    --nav-active: #e2e8f0;
+    --nav-hover: #1e293b;
+    --body-bg: #f8fafc;
+    --surface: #ffffff;
+    --border: #e2e8f0;
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --text-muted: #94a3b8;
+    --green: #059669;
+    --green-light: #ecfdf5;
+    --amber: #d97706;
+    --amber-light: #fffbeb;
+    --red: #dc2626;
+    --red-light: #fef2f2;
+    --tag-bg: #f1f5f9;
+    --tag-text: #334155;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--body-bg);
+    color: var(--text-primary);
+    display: flex;
+    min-height: 100vh;
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  .topbar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 52px;
+    background: var(--nav-bg);
+    display: flex;
+    align-items: center;
+    padding: 0 1.5rem;
+    z-index: 100;
+    border-bottom: 1px solid #1e293b;
+  }
+
+  .topbar-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    color: #fff;
+    letter-spacing: -0.5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .logo-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+
+  .topbar-badge {
+    margin-left: 10px;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--accent-border);
+    border: 1px solid #1e40af;
+    background: #1e3a8a22;
+    padding: 2px 8px;
+    border-radius: 20px;
+    letter-spacing: 0.3px;
+  }
+
+  .topbar-right {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .topbar-link {
+    font-size: 13px;
+    color: var(--nav-text);
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .topbar-link:hover { color: #e2e8f0; }
+
+  .topbar-cta {
+    font-size: 13px;
+    font-weight: 500;
+    background: var(--accent);
+    color: #fff;
+    padding: 6px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  .sidebar {
+    position: fixed;
+    top: 52px;
+    left: 0;
+    bottom: 0;
+    width: var(--nav-width);
+    background: var(--nav-bg);
+    overflow-y: auto;
+    padding: 1.5rem 0 2rem;
+    border-right: 1px solid #1e293b;
+  }
+
+  .sidebar::-webkit-scrollbar { width: 4px; }
+  .sidebar::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+
+  .nav-section-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #475569;
+    padding: 0.75rem 1.25rem 0.35rem;
+    margin-top: 0.5rem;
+  }
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 1.25rem;
+    font-size: 13.5px;
+    color: var(--nav-text);
+    cursor: pointer;
+    transition: background 0.12s, color 0.12s;
+    border-left: 2px solid transparent;
+  }
+
+  .nav-item:hover {
+    background: var(--nav-hover);
+    color: #cbd5e1;
+  }
+
+  .nav-item.active {
+    color: var(--nav-active);
+    background: #1e293b;
+    border-left-color: var(--accent);
+  }
+
+  .nav-item i { font-size: 15px; opacity: 0.8; }
+
+  .main {
+    margin-left: var(--nav-width);
+    margin-top: 52px;
+    flex: 1;
+    max-width: 860px;
+    padding: 3rem 3.5rem;
+  }
+
+  .section { display: none; }
+  .section.active { display: block; }
+
+  .page-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: -0.8px;
+    margin-bottom: 0.5rem;
+    line-height: 1.2;
+  }
+
+  .page-subtitle {
+    font-size: 16px;
+    color: var(--text-secondary);
+    margin-bottom: 2.5rem;
+    font-weight: 300;
+  }
+
+  h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 2.5rem 0 1rem;
+    letter-spacing: -0.3px;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  h3 {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text-primary);
+    margin: 1.5rem 0 0.5rem;
+  }
+
+  p { color: var(--text-secondary); margin-bottom: 1rem; }
+
+  .callout {
+    border-radius: 8px;
+    padding: 1rem 1.25rem;
+    margin: 1.25rem 0;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    font-size: 14px;
+  }
+
+  .callout i { margin-top: 2px; font-size: 16px; flex-shrink: 0; }
+  .callout p { margin: 0; font-size: 14px; }
+
+  .callout.info { background: var(--accent-light); color: #1e40af; border: 1px solid var(--accent-border); }
+  .callout.info i { color: #1a56db; }
+  .callout.success { background: var(--green-light); color: #065f46; border: 1px solid #6ee7b7; }
+  .callout.success i { color: var(--green); }
+  .callout.warning { background: var(--amber-light); color: #92400e; border: 1px solid #fcd34d; }
+  .callout.warning i { color: var(--amber); }
+
+  .code-block {
+    background: #0f172a;
+    border-radius: 8px;
+    padding: 1.25rem 1.5rem;
+    margin: 1rem 0 1.5rem;
+    overflow-x: auto;
+    border: 1px solid #1e293b;
+  }
+
+  .code-block pre {
+    font-family: 'Fira Mono', monospace;
+    font-size: 13px;
+    color: #93c5fd;
+    line-height: 1.65;
+    white-space: pre;
+  }
+
+  .code-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+  }
+
+  .code-lang {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #475569;
+  }
+
+  .steps { counter-reset: step-counter; margin: 1rem 0; }
+
+  .step {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    align-items: flex-start;
+  }
+
+  .step-num {
+    flex-shrink: 0;
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 600;
+    margin-top: 1px;
+  }
+
+  .step-content h3 { margin: 0 0 4px; font-size: 15px; }
+  .step-content p { margin: 0; font-size: 14px; }
+
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin: 1.25rem 0;
+  }
+
+  .feature-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.25rem;
+  }
+
+  .feature-card i {
+    font-size: 22px;
+    color: var(--accent);
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  .feature-card h3 { font-size: 14px; margin: 0 0 6px; }
+  .feature-card p { font-size: 13px; margin: 0; color: var(--text-muted); }
+
+  .doc-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    margin: 1rem 0 1.5rem;
+    background: var(--surface);
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+
+  .doc-table th {
+    background: #f1f5f9;
+    font-weight: 500;
+    font-size: 12px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    padding: 10px 14px;
+    text-align: left;
+  }
+
+  .doc-table td {
+    padding: 10px 14px;
+    border-top: 1px solid var(--border);
+    color: var(--text-secondary);
+    vertical-align: top;
+  }
+
+  .doc-table tr:hover td { background: #f8fafc; }
+
+  .tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 500;
+    background: var(--tag-bg);
+    color: var(--tag-text);
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin: 0 2px;
+  }
+
+  .tag.get { background: #ecfdf5; color: #065f46; }
+  .tag.post { background: #eff6ff; color: #1e40af; }
+  .tag.delete { background: #fef2f2; color: #991b1b; }
+
+  hr { border: none; border-top: 1px solid var(--border); margin: 2rem 0; }
+
+  .hero-card {
+    background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+    border-radius: 12px;
+    padding: 2.5rem;
+    margin-bottom: 2.5rem;
+    color: #fff;
+  }
+
+  .hero-card h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.6px;
+    margin-bottom: 0.5rem;
+  }
+
+  .hero-card p { color: #94a3b8; margin-bottom: 1.5rem; font-weight: 300; }
+
+  .hero-links {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .hero-btn {
+    font-size: 13.5px;
+    font-weight: 500;
+    padding: 8px 18px;
+    border-radius: 7px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .hero-btn.primary { background: var(--accent); color: #fff; }
+  .hero-btn.secondary { background: #ffffff18; color: #e2e8f0; border: 1px solid #ffffff22; }
+
+  .quicklinks {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+    margin: 1.5rem 0;
+  }
+
+  .ql-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem 1.25rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: border-color 0.15s, background 0.15s;
+    text-decoration: none;
+  }
+
+  .ql-card:hover { border-color: var(--accent-border); background: var(--accent-light); }
+  .ql-card i { font-size: 18px; color: var(--accent); }
+  .ql-card span { font-size: 13.5px; font-weight: 500; color: var(--text-primary); }
+
+  ul { padding-left: 1.5rem; color: var(--text-secondary); margin-bottom: 1rem; }
+  ul li { margin-bottom: 4px; font-size: 14px; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-logo">
+    <div class="logo-dot"></div>
+    LagLens
+    <span class="topbar-badge">Docs v1.0</span>
+  </div>
+  <div class="topbar-right">
+    <span class="topbar-link">GitHub</span>
+    <span class="topbar-link">Changelog</span>
+    <span class="topbar-cta">Launch App ↗</span>
+  </div>
+</div>
+
+<nav class="sidebar">
+  <div class="nav-section-label">Overview</div>
+  <div class="nav-item active" onclick="show('home', this)" data-section="home">
+    <i class="ti ti-home"></i> Home
+  </div>
+  <div class="nav-item" onclick="show('intro', this)" data-section="intro">
+    <i class="ti ti-info-circle"></i> What is LagLens?
+  </div>
+
+  <div class="nav-section-label">Getting Started</div>
+  <div class="nav-item" onclick="show('quickstart', this)" data-section="quickstart">
+    <i class="ti ti-rocket"></i> Quick Start
+  </div>
+  <div class="nav-item" onclick="show('account', this)" data-section="account">
+    <i class="ti ti-user-circle"></i> Creating an Account
+  </div>
+  <div class="nav-item" onclick="show('dashboard', this)" data-section="dashboard">
+    <i class="ti ti-layout-dashboard"></i> Dashboard Overview
+  </div>
+
+  <div class="nav-section-label">Features</div>
+  <div class="nav-item" onclick="show('analysis', this)" data-section="analysis">
+    <i class="ti ti-chart-line"></i> Stock Analysis
+  </div>
+  <div class="nav-item" onclick="show('indicators', this)" data-section="indicators">
+    <i class="ti ti-activity"></i> Indicators & Signals
+  </div>
+  <div class="nav-item" onclick="show('watchlist', this)" data-section="watchlist">
+    <i class="ti ti-eye"></i> Watchlists
+  </div>
+  <div class="nav-item" onclick="show('alerts', this)" data-section="alerts">
+    <i class="ti ti-bell"></i> Alerts
+  </div>
+  <div class="nav-item" onclick="show('screener', this)" data-section="screener">
+    <i class="ti ti-filter"></i> Stock Screener
+  </div>
+
+  <div class="nav-section-label">Reference</div>
+  <div class="nav-item" onclick="show('api', this)" data-section="api">
+    <i class="ti ti-code"></i> API Reference
+  </div>
+  <div class="nav-item" onclick="show('faq', this)" data-section="faq">
+    <i class="ti ti-help-circle"></i> FAQ
+  </div>
+  <div class="nav-item" onclick="show('glossary', this)" data-section="glossary">
+    <i class="ti ti-book"></i> Glossary
+  </div>
+  <div class="nav-item" onclick="show('changelog', this)" data-section="changelog">
+    <i class="ti ti-git-branch"></i> Changelog
+  </div>
+</nav>
+
+<main class="main">
+
+  <!-- HOME -->
+  <div class="section active" id="home">
+    <div class="hero-card">
+      <h1>Welcome to LagLens Docs</h1>
+      <p>Everything you need to analyze markets, track stocks, and make informed investment decisions.</p>
+      <div class="hero-links">
+        <span class="hero-btn primary" onclick="show('quickstart', document.querySelector('[data-section=quickstart]'))">
+          <i class="ti ti-rocket"></i> Quick Start
+        </span>
+        <span class="hero-btn secondary" onclick="show('api', document.querySelector('[data-section=api]'))">
+          <i class="ti ti-code"></i> API Reference
+        </span>
+      </div>
+    </div>
+
+    <h2 style="margin-top:0">Quick links</h2>
+    <div class="quicklinks">
+      <span class="ql-card" onclick="show('account', document.querySelector('[data-section=account]'))">
+        <i class="ti ti-user-circle"></i><span>Create an account</span>
+      </span>
+      <span class="ql-card" onclick="show('analysis', document.querySelector('[data-section=analysis]'))">
+        <i class="ti ti-chart-line"></i><span>Run your first analysis</span>
+      </span>
+      <span class="ql-card" onclick="show('indicators', document.querySelector('[data-section=indicators]'))">
+        <i class="ti ti-activity"></i><span>Indicators guide</span>
+      </span>
+      <span class="ql-card" onclick="show('alerts', document.querySelector('[data-section=alerts]'))">
+        <i class="ti ti-bell"></i><span>Set up alerts</span>
+      </span>
+      <span class="ql-card" onclick="show('screener', document.querySelector('[data-section=screener]'))">
+        <i class="ti ti-filter"></i><span>Stock screener</span>
+      </span>
+      <span class="ql-card" onclick="show('faq', document.querySelector('[data-section=faq]'))">
+        <i class="ti ti-help-circle"></i><span>FAQ</span>
+      </span>
+    </div>
+  </div>
+
+  <!-- WHAT IS LAGLENS -->
+  <div class="section" id="intro">
+    <p class="page-subtitle">Overview</p>
+    <h1 class="page-title">What is LagLens?</h1>
+    <p>LagLens is a web-based stock analysis platform designed to help retail investors and financial analysts identify lagging signals, compare securities, and build data-driven investment strategies — without requiring a background in quantitative finance.</p>
+    <p>The platform combines real-time market data, technical indicators, and customizable screeners into a single, intuitive interface.</p>
+
+    <h2>Key features</h2>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <i class="ti ti-chart-candle"></i>
+        <h3>Advanced charting</h3>
+        <p>Interactive candlestick charts with 30+ overlay indicators.</p>
+      </div>
+      <div class="feature-card">
+        <i class="ti ti-activity"></i>
+        <h3>Lag detection</h3>
+        <p>Proprietary algorithm to spot delayed price signals vs. benchmarks.</p>
+      </div>
+      <div class="feature-card">
+        <i class="ti ti-bell"></i>
+        <h3>Smart alerts</h3>
+        <p>Price, volume, and indicator-based notifications via email or SMS.</p>
+      </div>
+      <div class="feature-card">
+        <i class="ti ti-filter"></i>
+        <h3>Stock screener</h3>
+        <p>Filter thousands of tickers by fundamentals, technicals, and sector.</p>
+      </div>
+    </div>
+
+    <h2>Who is it for?</h2>
+    <ul>
+      <li>Retail investors researching individual stocks</li>
+      <li>Day traders and swing traders tracking technical patterns</li>
+      <li>Financial analysts running comparative market research</li>
+      <li>Developers integrating market data via the LagLens API</li>
+    </ul>
+  </div>
+
+  <!-- QUICK START -->
+  <div class="section" id="quickstart">
+    <p class="page-subtitle">Getting started</p>
+    <h1 class="page-title">Quick start</h1>
+    <p>Get up and running with LagLens in under 5 minutes.</p>
+
+    <div class="callout info">
+      <i class="ti ti-info-circle"></i>
+      <p>You'll need a LagLens account before proceeding. <span style="font-weight:500;cursor:pointer;text-decoration:underline" onclick="show('account', document.querySelector('[data-section=account]'))">Create one here →</span></p>
+    </div>
+
+    <h2>Steps</h2>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-content"><h3>Sign in to your account</h3><p>Go to <strong>app.laglens.io</strong> and sign in with your email and password, or use Google OAuth.</p></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-content"><h3>Search for a stock</h3><p>Use the search bar at the top to find a ticker (e.g., <span class="tag">AAPL</span>, <span class="tag">TSLA</span>). Click a result to open the analysis view.</p></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-content"><h3>Run a lag analysis</h3><p>In the analysis panel, click <strong>Run Lag Detection</strong>. Select a benchmark and a lookback window. Results appear in seconds.</p></div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-content"><h3>Add to watchlist</h3><p>Click the bookmark icon to save the stock to your watchlist for ongoing monitoring.</p></div></div>
+      <div class="step"><div class="step-num">5</div><div class="step-content"><h3>Set an alert</h3><p>Navigate to <strong>Alerts → New Alert</strong>, choose a condition, and select your notification method.</p></div></div>
+    </div>
+  </div>
+
+  <!-- ACCOUNT -->
+  <div class="section" id="account">
+    <p class="page-subtitle">Getting started</p>
+    <h1 class="page-title">Creating an account</h1>
+    <p>LagLens accounts are free to create. A paid plan is required to access advanced indicators and the API.</p>
+
+    <h2>Sign up</h2>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-content"><h3>Visit the sign-up page</h3><p>Go to <strong>laglens.io/signup</strong> and enter your name, email address, and a password.</p></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-content"><h3>Verify your email</h3><p>Check your inbox for a verification email. Click the link within 24 hours to activate your account.</p></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-content"><h3>Choose a plan</h3><p>Select Free, Pro, or Enterprise. You can upgrade at any time from account settings.</p></div></div>
+    </div>
+
+    <h2>Plans</h2>
+    <table class="doc-table">
+      <thead><tr><th>Feature</th><th>Free</th><th>Pro</th><th>Enterprise</th></tr></thead>
+      <tbody>
+        <tr><td>Watchlists</td><td>3</td><td>Unlimited</td><td>Unlimited</td></tr>
+        <tr><td>Indicators</td><td>10 basic</td><td>30+</td><td>30+ custom</td></tr>
+        <tr><td>Lag detection</td><td>5/day</td><td>Unlimited</td><td>Unlimited</td></tr>
+        <tr><td>Alerts</td><td>3</td><td>50</td><td>Unlimited</td></tr>
+        <tr><td>API access</td><td>—</td><td>1,000 req/day</td><td>Custom</td></tr>
+        <tr><td>Data history</td><td>1 year</td><td>10 years</td><td>20+ years</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- DASHBOARD -->
+  <div class="section" id="dashboard">
+    <p class="page-subtitle">Getting started</p>
+    <h1 class="page-title">Dashboard overview</h1>
+    <p>The LagLens dashboard is your central hub. It surfaces your watchlists, recent analyses, active alerts, and market summaries at a glance.</p>
+
+    <h2>Layout</h2>
+    <table class="doc-table">
+      <thead><tr><th>Area</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Top bar</strong></td><td>Global search, notifications, and account menu</td></tr>
+        <tr><td><strong>Left sidebar</strong></td><td>Navigation between sections: Watchlists, Screener, Alerts, Settings</td></tr>
+        <tr><td><strong>Main panel</strong></td><td>Your default watchlist and market overview widgets</td></tr>
+        <tr><td><strong>Right panel</strong></td><td>News feed and upcoming earnings calendar</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Customising the dashboard</h2>
+    <p>Click <strong>Edit Layout</strong> (top right of the dashboard) to enter edit mode. You can drag widgets, resize them, or remove ones you don't use. Changes are saved automatically.</p>
+
+    <div class="callout success">
+      <i class="ti ti-check"></i>
+      <p>Dashboard layouts sync across devices automatically when you're signed in.</p>
+    </div>
+  </div>
+
+  <!-- STOCK ANALYSIS -->
+  <div class="section" id="analysis">
+    <p class="page-subtitle">Features</p>
+    <h1 class="page-title">Stock analysis</h1>
+    <p>The analysis view is the core of LagLens. Open it by searching for any ticker symbol and clicking on the result.</p>
+
+    <h2>Chart panel</h2>
+    <ul>
+      <li>Switch between timeframes: 1D, 1W, 1M, 3M, 1Y, 5Y</li>
+      <li>Add overlays (moving averages, Bollinger Bands, VWAP)</li>
+      <li>Enable volume bars via the toolbar</li>
+      <li>Draw trendlines and annotations with the drawing tools</li>
+    </ul>
+
+    <h2>Lag detection panel</h2>
+    <p>LagLens's proprietary lag detection compares a stock's price movement to a chosen benchmark over a selected window and surfaces where the stock's reaction lagged or led the market.</p>
+
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-content"><h3>Select benchmark</h3><p>Choose from S&P 500, NASDAQ, a sector ETF, or any custom ticker.</p></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-content"><h3>Set lookback window</h3><p>Choose 30, 60, 90, or 180 days. Shorter windows highlight recent behavior.</p></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-content"><h3>Interpret results</h3><p>A positive lag score means the stock reacted after the benchmark. A negative score means it led.</p></div></div>
+    </div>
+
+    <div class="callout warning">
+      <i class="ti ti-alert-triangle"></i>
+      <p>Lag scores are statistical indicators only and do not constitute financial advice.</p>
+    </div>
+  </div>
+
+  <!-- INDICATORS -->
+  <div class="section" id="indicators">
+    <p class="page-subtitle">Features</p>
+    <h1 class="page-title">Indicators & signals</h1>
+    <p>LagLens includes a library of 30+ technical indicators, organized into categories.</p>
+
+    <h2>Available indicators</h2>
+    <table class="doc-table">
+      <thead><tr><th>Category</th><th>Indicators</th></tr></thead>
+      <tbody>
+        <tr><td>Trend</td><td>SMA, EMA, DEMA, TEMA, VWAP, Ichimoku Cloud</td></tr>
+        <tr><td>Momentum</td><td>RSI, MACD, Stochastic Oscillator, ROC, CCI</td></tr>
+        <tr><td>Volatility</td><td>Bollinger Bands, ATR, Keltner Channels, Standard Deviation</td></tr>
+        <tr><td>Volume</td><td>OBV, Volume Profile, CMF, VWMA</td></tr>
+        <tr><td>Custom</td><td>LagScore™, Correlation Band (Pro only)</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Adding an indicator</h2>
+    <p>Open any chart, click the <strong>Indicators</strong> button in the toolbar, search or browse the list, and click an indicator to apply it.</p>
+
+    <h2>Signals</h2>
+    <p>Signals are auto-detected conditions (e.g., RSI crossing above 70, MACD crossover). Enable them under <strong>Chart → Show Signals</strong>.</p>
+  </div>
+
+  <!-- WATCHLISTS -->
+  <div class="section" id="watchlist">
+    <p class="page-subtitle">Features</p>
+    <h1 class="page-title">Watchlists</h1>
+    <p>Watchlists let you track groups of stocks together. Free accounts can have up to 3 watchlists; Pro accounts get unlimited.</p>
+
+    <h2>Creating a watchlist</h2>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-content"><h3>Go to Watchlists</h3><p>Click <strong>Watchlists</strong> in the left sidebar.</p></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-content"><h3>Click "New list"</h3><p>Enter a name and optionally a description.</p></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-content"><h3>Add tickers</h3><p>Search for tickers and click to add. You can also bulk-import a comma-separated list.</p></div></div>
+    </div>
+
+    <h2>Watchlist columns</h2>
+    <p>Default columns include price, change %, volume, market cap, and LagScore. Click <strong>Columns</strong> to add or remove fields.</p>
+  </div>
+
+  <!-- ALERTS -->
+  <div class="section" id="alerts">
+    <p class="page-subtitle">Features</p>
+    <h1 class="page-title">Alerts</h1>
+    <p>Alerts notify you when a stock meets a condition you define, delivered via in-app notification, email, or SMS.</p>
+
+    <h2>Creating an alert</h2>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-content"><h3>Navigate to Alerts</h3><p>Click <strong>Alerts</strong> in the sidebar, then <strong>New Alert</strong>.</p></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-content"><h3>Choose a ticker</h3><p>Search for the stock you want to track.</p></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-content"><h3>Set the condition</h3><p>Choose a trigger type: price threshold, percent change, volume spike, indicator value, or LagScore threshold.</p></div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-content"><h3>Select notification method</h3><p>Choose In-app, Email, SMS, or all three.</p></div></div>
+    </div>
+
+    <h2>Alert types</h2>
+    <table class="doc-table">
+      <thead><tr><th>Type</th><th>Example</th><th>Plan</th></tr></thead>
+      <tbody>
+        <tr><td>Price above/below</td><td>AAPL above $200</td><td>Free</td></tr>
+        <tr><td>Percent change</td><td>TSLA drops more than 5% in a day</td><td>Free</td></tr>
+        <tr><td>Volume spike</td><td>Volume 3× 30-day average</td><td>Pro</td></tr>
+        <tr><td>Indicator trigger</td><td>RSI crosses above 70</td><td>Pro</td></tr>
+        <tr><td>LagScore threshold</td><td>LagScore exceeds +0.4</td><td>Pro</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- SCREENER -->
+  <div class="section" id="screener">
+    <p class="page-subtitle">Features</p>
+    <h1 class="page-title">Stock screener</h1>
+    <p>The screener lets you filter the entire market by fundamental and technical criteria to find stocks matching your strategy.</p>
+
+    <h2>Using the screener</h2>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-content"><h3>Open the screener</h3><p>Click <strong>Screener</strong> in the left sidebar.</p></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-content"><h3>Add filters</h3><p>Click <strong>+ Add Filter</strong> and choose from fundamentals, technicals, sector, market cap, and LagScore.</p></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-content"><h3>Run the screen</h3><p>Click <strong>Run</strong>. Results update in real time as you adjust filters.</p></div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-content"><h3>Save or export</h3><p>Save a screen for reuse or export the results as CSV.</p></div></div>
+    </div>
+
+    <h2>Available filters (sample)</h2>
+    <table class="doc-table">
+      <thead><tr><th>Filter</th><th>Type</th><th>Example</th></tr></thead>
+      <tbody>
+        <tr><td>Market cap</td><td>Range</td><td>$1B – $10B</td></tr>
+        <tr><td>P/E ratio</td><td>Range</td><td>&lt; 20</td></tr>
+        <tr><td>RSI (14)</td><td>Range</td><td>30 – 50</td></tr>
+        <tr><td>50-day SMA trend</td><td>Condition</td><td>Price above SMA 50</td></tr>
+        <tr><td>LagScore</td><td>Range</td><td>&gt; 0.3</td></tr>
+        <tr><td>Sector</td><td>Multi-select</td><td>Technology, Healthcare</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- API REFERENCE -->
+  <div class="section" id="api">
+    <p class="page-subtitle">Reference</p>
+    <h1 class="page-title">API reference</h1>
+    <p>The LagLens REST API lets you integrate market data and lag scores into your own applications. Available on Pro and Enterprise plans.</p>
+
+    <div class="callout info">
+      <i class="ti ti-key"></i>
+      <p>Generate your API key under <strong>Account → API Keys</strong>. Include it in every request as a Bearer token.</p>
+    </div>
+
+    <h2>Base URL</h2>
+    <div class="code-block"><pre>https://api.laglens.io/v1</pre></div>
+
+    <h2>Authentication</h2>
+    <div class="code-block">
+      <div class="code-header"><span class="code-lang">HTTP</span></div>
+      <pre>Authorization: Bearer YOUR_API_KEY</pre>
+    </div>
+
+    <h2>Endpoints</h2>
+    <table class="doc-table">
+      <thead><tr><th>Method</th><th>Endpoint</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td><span class="tag get">GET</span></td><td><code>/quote/{ticker}</code></td><td>Latest price and volume</td></tr>
+        <tr><td><span class="tag get">GET</span></td><td><code>/history/{ticker}</code></td><td>Historical OHLCV data</td></tr>
+        <tr><td><span class="tag get">GET</span></td><td><code>/lagscore/{ticker}</code></td><td>LagScore vs. a benchmark</td></tr>
+        <tr><td><span class="tag get">GET</span></td><td><code>/indicators/{ticker}</code></td><td>Calculated indicator values</td></tr>
+        <tr><td><span class="tag post">POST</span></td><td><code>/screener</code></td><td>Run a screen with filter criteria</td></tr>
+        <tr><td><span class="tag get">GET</span></td><td><code>/watchlists</code></td><td>List all your watchlists</td></tr>
+        <tr><td><span class="tag post">POST</span></td><td><code>/watchlists/{id}/stocks</code></td><td>Add a stock to a watchlist</td></tr>
+        <tr><td><span class="tag delete">DELETE</span></td><td><code>/alerts/{id}</code></td><td>Delete an alert</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Example request</h2>
+    <div class="code-block">
+      <div class="code-header"><span class="code-lang">cURL</span></div>
+      <pre>curl -X GET "https://api.laglens.io/v1/lagscore/AAPL?benchmark=SPY&window=60" \
+  -H "Authorization: Bearer YOUR_API_KEY"</pre>
+    </div>
+
+    <h2>Example response</h2>
+    <div class="code-block">
+      <div class="code-header"><span class="code-lang">JSON</span></div>
+      <pre>{
+  "ticker": "AAPL",
+  "benchmark": "SPY",
+  "window_days": 60,
+  "lag_score": 0.38,
+  "interpretation": "moderate_lag",
+  "calculated_at": "2026-05-14T14:00:00Z"
+}</pre>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="section" id="faq">
+    <p class="page-subtitle">Reference</p>
+    <h1 class="page-title">Frequently asked questions</h1>
+
+    <h2>General</h2>
+    <h3>Is LagLens free to use?</h3>
+    <p>Yes, there is a free tier with limited features. For unlimited lag detections, advanced indicators, and API access, a Pro or Enterprise plan is required.</p>
+
+    <h3>What exchanges does LagLens cover?</h3>
+    <p>LagLens currently covers NYSE, NASDAQ, and major ETFs. International exchange support is on the roadmap for Q3 2026.</p>
+
+    <h3>How real-time is the data?</h3>
+    <p>Pro and Enterprise plans receive data with a 15-minute delay during market hours. Real-time streaming is available as an add-on for Enterprise accounts.</p>
+
+    <h2>Lag detection</h2>
+    <h3>What does a LagScore of 0.5 mean?</h3>
+    <p>A score of +0.5 indicates moderate lag vs. the selected benchmark. Scores range from −1 (stock fully leads) to +1 (stock fully lags). Values near zero indicate tight correlation.</p>
+
+    <h3>Can I use my own benchmark?</h3>
+    <p>Yes. Any ticker available in LagLens can be used as a custom benchmark.</p>
+
+    <h2>Account & billing</h2>
+    <h3>Can I cancel my subscription at any time?</h3>
+    <p>Yes. Cancellations take effect at the end of the current billing period.</p>
+
+    <h3>Is my financial data stored on LagLens servers?</h3>
+    <p>LagLens does not store your personal portfolio data or brokerage credentials.</p>
+  </div>
+
+  <!-- GLOSSARY -->
+  <div class="section" id="glossary">
+    <p class="page-subtitle">Reference</p>
+    <h1 class="page-title">Glossary</h1>
+
+    <table class="doc-table">
+      <thead><tr><th>Term</th><th>Definition</th></tr></thead>
+      <tbody>
+        <tr><td><strong>LagScore™</strong></td><td>LagLens's proprietary metric indicating how much a stock's price movement lags or leads a benchmark. Ranges from −1 to +1.</td></tr>
+        <tr><td><strong>Benchmark</strong></td><td>A reference index or ticker used as the comparison point in lag detection.</td></tr>
+        <tr><td><strong>Lookback window</strong></td><td>The historical time range used in a lag analysis (e.g., 60 days).</td></tr>
+        <tr><td><strong>OHLCV</strong></td><td>Open, High, Low, Close, Volume — the standard fields for a price bar or candlestick.</td></tr>
+        <tr><td><strong>SMA</strong></td><td>Simple Moving Average — the unweighted mean of closing prices over N periods.</td></tr>
+        <tr><td><strong>EMA</strong></td><td>Exponential Moving Average — gives more weight to recent prices.</td></tr>
+        <tr><td><strong>RSI</strong></td><td>Relative Strength Index — a momentum oscillator from 0 to 100. Above 70 = overbought; below 30 = oversold.</td></tr>
+        <tr><td><strong>MACD</strong></td><td>Moving Average Convergence Divergence — a trend-following momentum indicator.</td></tr>
+        <tr><td><strong>VWAP</strong></td><td>Volume Weighted Average Price — average price weighted by volume.</td></tr>
+        <tr><td><strong>Screener</strong></td><td>A tool for filtering a universe of stocks by specified criteria.</td></tr>
+        <tr><td><strong>Ticker</strong></td><td>A unique symbol identifying a publicly traded company (e.g., AAPL for Apple).</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- CHANGELOG -->
+  <div class="section" id="changelog">
+    <p class="page-subtitle">Reference</p>
+    <h1 class="page-title">Changelog</h1>
+
+    <h2>v1.2.0 — May 2026</h2>
+    <ul>
+      <li>Added Correlation Band indicator (Pro)</li>
+      <li>Screener now supports saving up to 20 custom screens</li>
+      <li>SMS alerts now available in all regions</li>
+      <li>Performance improvements to lag detection engine (2× faster)</li>
+    </ul>
+
+    <h2>v1.1.0 — March 2026</h2>
+    <ul>
+      <li>Introduced LagScore API endpoint</li>
+      <li>Dashboard layout customisation (drag-and-drop widgets)</li>
+      <li>Added Ichimoku Cloud and Volume Profile indicators</li>
+      <li>Dark mode support</li>
+    </ul>
+
+    <h2>v1.0.0 — January 2026</h2>
+    <ul>
+      <li>Initial public launch</li>
+      <li>Core lag detection engine</li>
+      <li>Watchlists, alerts, and basic screener</li>
+      <li>Free and Pro plans</li>
+    </ul>
+  </div>
+
+</main>
+
+<script>
+function show(id, navEl) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  if (navEl) navEl.classList.add('active');
+  window.scrollTo(0, 0);
+}
+</script>
+
+</body>
+</html>
