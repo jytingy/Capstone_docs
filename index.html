@@ -689,48 +689,19 @@
     </div>
 
     <h2>Base URL</h2>
-    <div class="code-block"><pre>https://api.laglens.io/v1</pre></div>
+    <div class="code-block"><pre>https://algorithmic-trading-backtesting-40kawx3cj.vercel.app/</pre></div>
 
-    <h2>Authentication</h2>
-    <div class="code-block">
-      <div class="code-header"><span class="code-lang">HTTP</span></div>
-      <pre>Authorization: Bearer YOUR_API_KEY</pre>
-    </div>
+  </div>
 
     <h2>Endpoints</h2>
     <table class="doc-table">
       <thead><tr><th>Method</th><th>Endpoint</th><th>Description</th></tr></thead>
       <tbody>
-        <tr><td><span class="tag get">GET</span></td><td><code>/quote/{ticker}</code></td><td>Latest price and volume</td></tr>
-        <tr><td><span class="tag get">GET</span></td><td><code>/history/{ticker}</code></td><td>Historical OHLCV data</td></tr>
-        <tr><td><span class="tag get">GET</span></td><td><code>/lagscore/{ticker}</code></td><td>LagScore vs. a benchmark</td></tr>
-        <tr><td><span class="tag get">GET</span></td><td><code>/indicators/{ticker}</code></td><td>Calculated indicator values</td></tr>
-        <tr><td><span class="tag post">POST</span></td><td><code>/screener</code></td><td>Run a screen with filter criteria</td></tr>
-        <tr><td><span class="tag get">GET</span></td><td><code>/watchlists</code></td><td>List all your watchlists</td></tr>
-        <tr><td><span class="tag post">POST</span></td><td><code>/watchlists/{id}/stocks</code></td><td>Add a stock to a watchlist</td></tr>
-        <tr><td><span class="tag delete">DELETE</span></td><td><code>/alerts/{id}</code></td><td>Delete an alert</td></tr>
-      </tbody>
+        <tr><td><span class="tag get">GET</span></td><td><code>/dashboard</code></td><td>Dashboard and watchlist of stocks</td></tr>
+        <tr><td><span class="tag get">GET</span></td><td><code>/dashboard/analysis</code></td><td> Page of analysis for stocks</td></tr>
+        <tr><td><span class="tag get">GET</span></td><td><code>/dashboard/model</code></td><td>Deltalag model page</td></tr>
+        <tr><td><span class="tag get">GET</span></td><td><code>/dashboard/diversify</code></td><td>Diversification portfolio page</td></tr>
     </table>
-
-    <h2>Example request</h2>
-    <div class="code-block">
-      <div class="code-header"><span class="code-lang">cURL</span></div>
-      <pre>curl -X GET "https://api.laglens.io/v1/lagscore/AAPL?benchmark=SPY&window=60" \
-  -H "Authorization: Bearer YOUR_API_KEY"</pre>
-    </div>
-
-    <h2>Example response</h2>
-    <div class="code-block">
-      <div class="code-header"><span class="code-lang">JSON</span></div>
-      <pre>{
-  "ticker": "AAPL",
-  "benchmark": "SPY",
-  "window_days": 60,
-  "lag_score": 0.38,
-  "interpretation": "moderate_lag",
-  "calculated_at": "2026-05-14T14:00:00Z"
-}</pre>
-    </div>
   </div>
 
   <!-- FAQ -->
