@@ -740,27 +740,7 @@
 
     <h2>General</h2>
     <h3>Is LagLens free to use?</h3>
-    <p>Yes, there is a free tier with limited features. For unlimited lag detections, advanced indicators, and API access, a Pro or Enterprise plan is required.</p>
-
-    <h3>What exchanges does LagLens cover?</h3>
-    <p>LagLens currently covers NYSE, NASDAQ, and major ETFs. International exchange support is on the roadmap for Q3 2026.</p>
-
-    <h3>How real-time is the data?</h3>
-    <p>Pro and Enterprise plans receive data with a 15-minute delay during market hours. Real-time streaming is available as an add-on for Enterprise accounts.</p>
-
-    <h2>Lag detection</h2>
-    <h3>What does a LagScore of 0.5 mean?</h3>
-    <p>A score of +0.5 indicates moderate lag vs. the selected benchmark. Scores range from −1 (stock fully leads) to +1 (stock fully lags). Values near zero indicate tight correlation.</p>
-
-    <h3>Can I use my own benchmark?</h3>
-    <p>Yes. Any ticker available in LagLens can be used as a custom benchmark.</p>
-
-    <h2>Account & billing</h2>
-    <h3>Can I cancel my subscription at any time?</h3>
-    <p>Yes. Cancellations take effect at the end of the current billing period.</p>
-
-    <h3>Is my financial data stored on LagLens servers?</h3>
-    <p>LagLens does not store your personal portfolio data or brokerage credentials.</p>
+    <p>Yes, it is free.</p>
   </div>
 
   <!-- GLOSSARY -->
@@ -771,17 +751,15 @@
     <table class="doc-table">
       <thead><tr><th>Term</th><th>Definition</th></tr></thead>
       <tbody>
-        <tr><td><strong>LagScore™</strong></td><td>LagLens's proprietary metric indicating how much a stock's price movement lags or leads a benchmark. Ranges from −1 to +1.</td></tr>
+        <tr><td><strong>Covariance</strong></td><td>The measure of joint variability between two random variables, indicating whether they move together (positive) or in opposite directions (negative).</td></tr>
         <tr><td><strong>Benchmark</strong></td><td>A reference index or ticker used as the comparison point in lag detection.</td></tr>
-        <tr><td><strong>Lookback window</strong></td><td>The historical time range used in a lag analysis (e.g., 60 days).</td></tr>
-        <tr><td><strong>OHLCV</strong></td><td>Open, High, Low, Close, Volume — the standard fields for a price bar or candlestick.</td></tr>
-        <tr><td><strong>SMA</strong></td><td>Simple Moving Average — the unweighted mean of closing prices over N periods.</td></tr>
-        <tr><td><strong>EMA</strong></td><td>Exponential Moving Average — gives more weight to recent prices.</td></tr>
-        <tr><td><strong>RSI</strong></td><td>Relative Strength Index — a momentum oscillator from 0 to 100. Above 70 = overbought; below 30 = oversold.</td></tr>
-        <tr><td><strong>MACD</strong></td><td>Moving Average Convergence Divergence — a trend-following momentum indicator.</td></tr>
-        <tr><td><strong>VWAP</strong></td><td>Volume Weighted Average Price — average price weighted by volume.</td></tr>
-        <tr><td><strong>Screener</strong></td><td>A tool for filtering a universe of stocks by specified criteria.</td></tr>
+        <tr><td><strong>Rolling window</strong></td><td>The historical time range used in a lag analysis (e.g., 60 days).</td></tr>
+        <tr><td><strong>OHLCV</strong></td><td>Open, High, Close, Low, Volume (usually pertaining to end-of-day stock data for a particular stock).</td></tr>
+        <tr><td><strong>Russell 3000</strong></td><td>An index that measures the performance of the largest 3000 US companies which represents approximately 98% of the investable US equity market.</td></tr>
+        <tr><td><strong>S&P 500</strong></td><td>Standard and Poor’s 500 is a stock market index tracking the stock performance of 500 leading companies listed on stock exchanges in the United States.</td></tr>
+        <tr><td><strong>Distance Correlation</strong></td><td>A statistical measure of dependence between two random vectors (variables) that detects both linear and non-linear relationships, unlike Pearson's correlation which only finds linear ones; it's zero if and only if the variables are truly independent, ranging from 0 to 1, and is calculated using Euclidean distances between sample points after a double-centering process, providing deeper insights into complex data.</td></tr>
         <tr><td><strong>Ticker</strong></td><td>A unique symbol identifying a publicly traded company (e.g., AAPL for Apple).</td></tr>
+        <tr><td><strong>Lead-Lag Relationship</strong></td><td>A relationship between two time series where one, 'leader', tends to move before the other, the 'lagger’, suggesting a predictive relationship.</td></tr>
       </tbody>
     </table>
   </div>
